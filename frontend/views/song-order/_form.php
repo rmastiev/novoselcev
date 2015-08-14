@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use common\models\Song;
 use common\models\RoomTable;
+use kartik\select2\Select2;
 
 
 /* @var $this yii\web\View */
@@ -15,7 +16,14 @@ use common\models\RoomTable;
 
 <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($model, 'song_id')->dropDownList(ArrayHelper::map(Song::find()->all(),'id','fullSong')) ?>
+<?= $form->field($model, 'song_id')->widget(Select2::classname(), [
+    'data' => ArrayHelper::map(Song::find()->all(),'id','fullSong'),
+    'language' => 'ru',
+    'options' => ['placeholder' => 'Выберите песню'],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],
+]); ?>
 
 <?= $form->field($model, 'room_id')->dropDownList(ArrayHelper::map(RoomTable::find()->all(),'id','room')) ?>
 
